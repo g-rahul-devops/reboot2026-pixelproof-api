@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gcp:
+      project-id: ltc-hack2026-team27
+      bucket-name: pixelproof-dev
+      credentials:
+        location: file:C:\Users\Dell\Documents\GitHub\reboot2026-pixelproof-api\src\main\resources\ltc-hack2026-team27.json
+  application:
+    name: reboot2026-pixelproof-bgv-api
+
+  bigquery:
+    dataset-name: pixelproof
+    table-name: document-verification
+    credentials:
+      location: classpath:ltc-hack2026-team27.json
+
+gcs:
+  bucket-name: pixelproof-dev
+
+server:
+  port: 8085
