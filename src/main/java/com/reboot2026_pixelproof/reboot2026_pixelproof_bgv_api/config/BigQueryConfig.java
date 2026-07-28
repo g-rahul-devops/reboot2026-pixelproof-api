@@ -9,17 +9,13 @@ import com.google.cloud.storage.StorageOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Configuration
 public class BigQueryConfig {
     @Bean
     public Storage createStorage() throws IOException {
-        GoogleCredentials credentials = GoogleCredentials.fromStream(
-                new FileInputStream("src/main/resources/ltc-hack2026-team27.json")
-        );
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
         // Create the Storage object with the project ID
         Storage storage = StorageOptions.newBuilder()
                 .setCredentials(credentials)
@@ -42,7 +38,7 @@ public class BigQueryConfig {
 
     @Bean
     public BigQuery bigQuery() throws IOException {
-        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/ltc-hack2026-team27.json"));
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
         BigQuery bigQuery = BigQueryOptions.newBuilder()
                 .setCredentials(credentials)
                 .setProjectId("ltc-hack2026-team27")

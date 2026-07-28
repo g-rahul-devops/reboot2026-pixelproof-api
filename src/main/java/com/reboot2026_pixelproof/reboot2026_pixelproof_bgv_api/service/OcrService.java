@@ -1,8 +1,6 @@
 package com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.service;
 
-import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.api.gax.longrunning.OperationFuture;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.vision.v1.*;
 import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.entity.DocumentRecord;
 import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.entity.OcrResponse;
@@ -12,10 +10,7 @@ import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.repository.OcrVal
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.protobuf.ByteString;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -42,13 +37,7 @@ public class OcrService {
             throw new RuntimeException("File is empty.");
         }
 
-        // Load credentials
-        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/ltc-hack2026-team27.json"));
-        ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder()
-                .setCredentialsProvider(FixedCredentialsProvider.create(credentials))
-                .build();
-
-        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create(settings)) {
+        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
             ByteString fileBytes = ByteString.readFrom(file.getInputStream());
 
             if ("application/pdf".equals(file.getContentType())) {

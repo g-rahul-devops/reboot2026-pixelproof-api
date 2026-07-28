@@ -1,24 +1,20 @@
 spring:
   cloud:
     gcp:
-      project-id: ltc-hack2026-team27
-      bucket-name: pixelproof-dev
-      credentials:
-        location: file:C:\Users\Dell\Documents\GitHub\reboot2026-pixelproof-api\src\main\resources\ltc-hack2026-team27.json
+      project-id: ${GCP_PROJECT_ID:ltc-hack2026-team27}
+      bucket-name: ${GCS_BUCKET_NAME:pixelproof-dev}
   application:
     name: reboot2026-pixelproof-bgv-api
 
   bigquery:
-    dataset-name: pixelproof
-    table-name: document-verification
-    credentials:
-      location: classpath:ltc-hack2026-team27.json
+    dataset-name: ${BIGQUERY_DATASET_NAME:pixelproof}
+    table-name: ${BIGQUERY_TABLE_NAME:document-verification}
 
 gcs:
   bucket-name: pixelproof-dev
 
 server:
-  port: 8085
+  port: ${PORT:8080}
   servlet:
     context-path: /api/v1
 
@@ -32,14 +28,14 @@ management:
       show-details: always
 
 hyperledger:
-  channel-name: mychannel
-  chaincode-name: auditchaincode
-  msp-id: Org1MSP
-  peer-endpoint: localhost:7051
-  gateway-peer: peer0.org1.example.com
-  crypto-path: C:/hyperledger-network/crypto-config
-  wallet-path: C:/hyperledger-network/wallet
-  connection-profile: C:/hyperledger-network/connection-org1.json
+  channel-name: ${HYPERLEDGER_CHANNEL_NAME:mychannel}
+  chaincode-name: ${HYPERLEDGER_CHAINCODE_NAME:auditchaincode}
+  msp-id: ${HYPERLEDGER_MSP_ID:Org1MSP}
+  peer-endpoint: ${HYPERLEDGER_PEER_ENDPOINT:localhost:7051}
+  gateway-peer: ${HYPERLEDGER_GATEWAY_PEER:peer0.org1.example.com}
+  crypto-path: ${HYPERLEDGER_CRYPTO_PATH:/workspace/crypto-config}
+  wallet-path: ${HYPERLEDGER_WALLET_PATH:/workspace/wallet}
+  connection-profile: ${HYPERLEDGER_CONNECTION_PROFILE:/workspace/connection-org1.json}
 
 
 vertex-ai:
