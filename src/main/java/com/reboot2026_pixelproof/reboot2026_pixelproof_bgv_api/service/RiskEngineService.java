@@ -17,7 +17,7 @@ public class RiskEngineService {
     }
 
     public RiskResponse calculateRisk(String documentId,
-                                      MetadataResponse metadata,
+                                      DocumentMetadata metadata,
                                       OcrResponse ocr,
                                       TamperResponse tamper) throws InterruptedException {
         int score = 0;

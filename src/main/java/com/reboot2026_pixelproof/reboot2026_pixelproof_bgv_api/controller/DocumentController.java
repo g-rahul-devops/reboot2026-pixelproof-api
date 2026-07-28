@@ -55,7 +55,7 @@ public class DocumentController {
         String hash = fingerprintService.generateHash(file);
 
         // 4. Extract metadata
-        MetadataResponse metadata = metadataService.extractMetadata(file);
+        DocumentMetadata metadata = metadataService.extractMetadata(file);
 
         // 5. OCR validation
         OcrResponse ocr = ocrService.extractText(file,docId);
