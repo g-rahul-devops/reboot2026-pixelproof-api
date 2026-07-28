@@ -19,6 +19,17 @@ gcs:
 
 server:
   port: 8085
+  servlet:
+    context-path: /api/v1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 hyperledger:
   channel-name: mychannel

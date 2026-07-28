@@ -16,13 +16,13 @@ public class FingerprintService {
         this.repo = repo;
     }
 
-    public String generateHash(MultipartFile file) {
+    public String generateHash(MultipartFile file, String id) {
         try {
             String hash = HashUtil.sha256(file.getBytes());
-            DocumentRecord record = repo.findById(file.getOriginalFilename());
+            DocumentRecord record = repo.findById(id);
             record.setFile_hash(hash);
             record.setVerification_status("HASH_GENERATED");
-            repo.save(record);
+            repo.updateSave(record);
             return hash;
           } catch (IOException e) {
             throw new RuntimeException("Error generating hash", e);

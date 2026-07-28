@@ -56,6 +56,7 @@ public class MetadataService {
                 metadataValid = false;
             }
         }
+        System.out.println("Extracted Metadata: fileName=" + fileName + ", mimeType=" + mimeType + ", pageCount=" + pageCount + ", author=" + author + ", producer=" + producer);
         return DocumentMetadata.builder()
                 .documentId(UUID.randomUUID())
                 .fileName(fileName)

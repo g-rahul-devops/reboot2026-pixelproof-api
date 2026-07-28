@@ -29,7 +29,7 @@ public class StorageService {
         this.bucketName = bucketName;
     }
 
-    public String store(MultipartFile file) {
+    public String store(MultipartFile file, String employee_id) {
         String docId = UUID.randomUUID().toString();
         String gcsPath = docId + "/" + file.getOriginalFilename();
         try {

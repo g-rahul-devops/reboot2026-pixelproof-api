@@ -23,7 +23,7 @@ public class BigQueryDocumentRepository implements DocumentRepository {
 
     @Override
     public DocumentRecord findById(String id) throws InterruptedException {
-        String query = String.format("SELECT * FROM `%s.%s` WHERE file_name = '%s'", datasetName, tableName, id);
+        String query = String.format("SELECT * FROM `%s.%s` WHERE document_id = '%s'", datasetName, tableName, id);
         QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
 
         for (FieldValueList row : bigQuery.query(queryConfig).iterateAll()) {
@@ -58,18 +58,45 @@ public class BigQueryDocumentRepository implements DocumentRepository {
     @Override
     public void save(DocumentRecord documentRecord) throws InterruptedException {
         String query = String.format(
-                "MERGE `%s.%s` T " +
-                        "USING (SELECT '%s' AS document_id) S " +
-                        "ON T.document_id = S.document_id " +
-                        "WHEN MATCHED THEN " +
-                        "  UPDATE SET verification_status = '%s', gcs_path = '%s', file_hash = '%s', file_name = '%s' " +
-                        "WHEN NOT MATCHED THEN " +
-                        "  INSERT (document_id, verification_status, gcs_path, file_hash, file_name) " +
-                        "  VALUES ('%s', '%s', '%s', '%s', '%s')",
+                "INSERT INTO `%s.%s` (document_id, verification_status, gcs_path, file_name,employee_id) " +
+                        "VALUES ('%s', '%s', '%s', '%s','%s')",
                 datasetName, tableName,
                 documentRecord.getDocument_id(),
-                documentRecord.getVerification_status(), documentRecord.getGcs_path(), documentRecord.getFile_hash(), documentRecord.getFile_name(),
-                documentRecord.getDocument_id(), documentRecord.getVerification_status(), documentRecord.getGcs_path(), documentRecord.getFile_hash(), documentRecord.getFile_name()
+                documentRecord.getVerification_status(),
+                documentRecord.getGcs_path(),
+                documentRecord.getFile_name(),
+                documentRecord.getEmployee_id()
+        );
+
+        QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+        bigQuery.query(queryConfig);
+    }
+
+    @Override
+    public void updateSave(DocumentRecord documentRecord) throws InterruptedException {
+        String query = String.format(
+                "UPDATE `%s.%s` " +
+                        "SET file_hash = '%s', verification_status = '%s' " +
+                        "WHERE document_id = '%s'",
+                datasetName, tableName,
+                documentRecord.getFile_hash(),
+                documentRecord.getVerification_status(),
+                documentRecord.getDocument_id()
+        );
+
+        QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+        bigQuery.query(queryConfig);
+    }
+    @Override
+    public void updateOcrSave(DocumentRecord documentRecord) throws InterruptedException {
+        String query = String.format(
+                "UPDATE `%s.%s` " +
+                        "SET ocr_validation_status = '%s'" +
+                        "WHERE document_id = '%s'",
+                datasetName, tableName,
+                documentRecord.getFile_hash(),
+                documentRecord.getVerification_status(),
+                documentRecord.getDocument_id()
         );
 
         QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();

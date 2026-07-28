@@ -8,5 +8,8 @@ public interface DocumentRepository {
     DocumentRecord findById(String id) throws InterruptedException;
     List<DocumentRecord> findAll() throws InterruptedException;
     void save(DocumentRecord documentRecord) throws InterruptedException;
+
+    void updateSave(DocumentRecord documentRecord) throws InterruptedException;
+    void updateOcrSave(DocumentRecord documentRecord) throws InterruptedException;
     void deleteById(String id) throws InterruptedException;
 }
