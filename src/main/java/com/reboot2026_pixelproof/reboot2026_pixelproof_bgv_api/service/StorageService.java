@@ -37,14 +37,8 @@ public class StorageService {
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             gcsStorage.create(blobInfo, file.getBytes());
 
-            DocumentRecord record = new DocumentRecord();
-            record.setDocument_id(docId);
-            record.setGcs_path(gcsPath);
-            System.out.println("Original filename " +file.getOriginalFilename());
-            record.setFile_name(file.getOriginalFilename());
-            record.setUploaded_at(LocalDateTime.now());
-            record.setVerification_status("STORED_IN_GCS");
-            repo.save(record);
+            saveDocumentRecord(file, docId, gcsPath);
+
 
             return docId;
         } catch (IOException e) {
@@ -54,6 +48,19 @@ public class StorageService {
         }
     }
 
+    public void saveDocumentRecord(MultipartFile file,String docId,String gcsPath) throws InterruptedException {
+        DocumentRecord record = new DocumentRecord();
+        record.setDocument_id(docId);
+        record.setGcs_path(gcsPath);
+        System.out.println("Original filename " +file.getOriginalFilename());
+        record.setFile_name(file.getOriginalFilename());
+        record.setUploaded_at(LocalDateTime.now());
+        record.setVerification_status("STORED_IN_GCS");
+        repo.save(record);
+    }
+    public void saveAuditLedger(int EmpId,String empName,String docName,String status){
+
+    }
     public String getStatus(String documentId) throws InterruptedException {
         return repo.findById(documentId).getVerification_status();
     }

@@ -50,6 +50,7 @@ public class DocumentController {
 
         // 2. Store in GCS
         String docId = storageService.store(file);
+        String gcsPath = docId + "/" + file.getOriginalFilename();
 
         // 3. Generate fingerprint
         String hash = fingerprintService.generateHash(file);
@@ -61,7 +62,7 @@ public class DocumentController {
         OcrResponse ocr = ocrService.extractText(file,docId);
 
         // 6. Tamper analysis
-        TamperResponse tamper = tamperService.analyze(file,docId);
+        DocumentAnalysisResponse tamper = tamperService.analyzeDocument(gcsPath);
 
         // 7. Risk scoring
         RiskResponse risk = riskService.calculateRisk(docId,metadata, ocr, tamper);

@@ -19,7 +19,7 @@ public class RiskEngineService {
     public RiskResponse calculateRisk(String documentId,
                                       DocumentMetadata metadata,
                                       OcrResponse ocr,
-                                      TamperResponse tamper) throws InterruptedException {
+                                      DocumentAnalysisResponse tamper) throws InterruptedException {
         int score = 0;
         List<String> reasons = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class RiskEngineService {
         }
 
         // Tamper findings
-        if (tamper.getFindings() != null && !tamper.getFindings().isEmpty()) {
+        if (tamper.isTampered()) {
             score += 40;
             reasons.add("Tamper anomalies detected");
         }

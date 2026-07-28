@@ -19,3 +19,20 @@ gcs:
 
 server:
   port: 8085
+
+hyperledger:
+  channel-name: mychannel
+  chaincode-name: auditchaincode
+  msp-id: Org1MSP
+  peer-endpoint: localhost:7051
+  gateway-peer: peer0.org1.example.com
+  crypto-path: C:/hyperledger-network/crypto-config
+  wallet-path: C:/hyperledger-network/wallet
+  connection-profile: C:/hyperledger-network/connection-org1.json
+
+
+vertex-ai:
+  enabled: ${VERTEX_AI_ENABLED:true}
+  project-id: ${VERTEX_AI_PROJECT_ID:ltc-hack2026-team27}
+  location: ${VERTEX_AI_LOCATION:us-central1} #need to update original region
+  model: ${VERTEX_AI_MODEL:gemini-1.5-flash}
