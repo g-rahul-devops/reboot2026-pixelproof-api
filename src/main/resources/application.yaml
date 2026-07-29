@@ -45,5 +45,5 @@ hyperledger:
 vertex-ai:
   enabled: ${VERTEX_AI_ENABLED:true}
   project-id: ${VERTEX_AI_PROJECT_ID:ltc-hack2026-team27}
-  location: ${VERTEX_AI_LOCATION:us-central1} #need to update original region
-  model: ${VERTEX_AI_MODEL:gemini-1.5-flash}
+  location: ${VERTEX_AI_LOCATION:global} #need to update original region
+  model: ${VERTEX_AI_MODEL:gemini-ultra}
