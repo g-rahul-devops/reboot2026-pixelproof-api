@@ -116,8 +116,8 @@ public class BigQueryDocumentRepository implements DocumentRepository {
         record.setFile_name(row.get("file_name").isNull() ? null : row.get("file_name").getStringValue());
         record.setGcs_path(row.get("gcs_path").isNull() ? null : row.get("gcs_path").getStringValue());
         record.setVerification_status(row.get("verification_status").isNull() ? null : row.get("verification_status").getStringValue());
-        record.setDocument_id(row.get("decision").isNull() ? null : row.get("decision").getStringValue());
-        record.setEmployee_id(row.get("reasonCodes").isNull() ? null : row.get("reasonCodes").getStringValue());
+        record.setDecision(row.get("decision").isNull() ? null : row.get("decision").getStringValue());
+        record.setReasonCodes(row.get("reasonCodes").isNull() ? null : row.get("reasonCodes").getStringValue());
 
         return record;
 
