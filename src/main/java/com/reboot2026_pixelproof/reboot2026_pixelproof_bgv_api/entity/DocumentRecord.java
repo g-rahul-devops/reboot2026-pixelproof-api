@@ -1,6 +1,7 @@
 package com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class DocumentRecord {
     private String file_hash;
     private LocalDateTime uploaded_at;
     private String verification_status;
+    @JsonProperty("employee_id")
     private String employee_id;
     private String file_name;
     private long size;
