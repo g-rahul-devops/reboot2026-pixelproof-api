@@ -37,7 +37,7 @@ public class StorageService {
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             gcsStorage.create(blobInfo, file.getBytes());
 
-            saveDocumentRecord(file, docId, gcsPath);
+            saveDocumentRecord(file, docId, gcsPath, employee_id);
 
 
             return docId;
@@ -48,9 +48,10 @@ public class StorageService {
         }
     }
 
-    public void saveDocumentRecord(MultipartFile file,String docId,String gcsPath) throws InterruptedException {
+    public void saveDocumentRecord(MultipartFile file,String docId,String gcsPath, String employee_id) throws InterruptedException {
         DocumentRecord record = new DocumentRecord();
         record.setDocument_id(docId);
+        record.setEmployee_id(employee_id);
         record.setGcs_path(gcsPath);
         System.out.println("Original filename " +file.getOriginalFilename());
         record.setFile_name(file.getOriginalFilename());

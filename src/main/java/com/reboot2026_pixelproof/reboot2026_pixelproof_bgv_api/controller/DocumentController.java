@@ -17,7 +17,6 @@ public class DocumentController {
     private final StorageService storageService;
     private final FingerprintService fingerprintService;
     private final MetadataService metadataService;
-    private final OcrService ocrService;
     private final TamperDetectionService tamperService;
     private final RiskEngineService riskService;
    // private final AuditService auditService;
@@ -25,7 +24,6 @@ public class DocumentController {
     public DocumentController(StorageService storageService,
                               FingerprintService fingerprintService,
                               MetadataService metadataService,
-                              OcrService ocrService,
                               TamperDetectionService tamperService,
                               RiskEngineService riskService
                              // AuditService auditService
@@ -33,7 +31,6 @@ public class DocumentController {
         this.storageService = storageService;
         this.fingerprintService = fingerprintService;
         this.metadataService = metadataService;
-        this.ocrService = ocrService;
         this.tamperService = tamperService;
         this.riskService = riskService;
      //   this.auditService = auditService;
