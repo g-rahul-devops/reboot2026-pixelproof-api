@@ -22,5 +22,10 @@ public class DocumentRecord {
     private LocalDateTime modifiedDate;
     private String ocr_validation_status;
 
+    private int score;
+    private String decision;
+    private String reasonCodes;
+
+
 }
 

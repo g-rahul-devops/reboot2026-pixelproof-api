@@ -8,7 +8,6 @@ import java.util.Map;
 @Data
 public class DocumentAnalysisResponse {
     private String documentType;
-    private Map<String, Object> ocr;
     private boolean tampered;
     private Integer confidence;
     private Integer riskScore;

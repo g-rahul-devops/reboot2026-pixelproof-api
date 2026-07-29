@@ -59,14 +59,12 @@ public class DocumentController {
         // 4. Extract metadata
         DocumentMetadata metadata = metadataService.extractMetadata(file);
 
-        // 5. OCR validation
-        OcrResponse ocr = ocrService.extractText(file,docId);
 
         // 6. Tamper analysis
         DocumentAnalysisResponse tamper = tamperService.analyzeDocument(gcsPath);
 
         // 7. Risk scoring
-        RiskResponse risk = riskService.calculateRisk(docId,metadata, ocr, tamper);
+        RiskResponse risk = riskService.calculateRisk(docId,metadata, tamper);
 
         // 8. Audit trail logging
     //    auditService.logStage(docId, "UPLOAD", "SUCCESS", hash);

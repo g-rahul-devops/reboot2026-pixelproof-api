@@ -18,6 +18,10 @@ server:
   servlet:
     context-path: /api/v1
 
+logging:
+  level:
+    root: DEBUG
+
 management:
   endpoints:
     web:
