@@ -58,7 +58,7 @@ public class DocumentController {
 
 
         // 6. Tamper analysis
-        DocumentAnalysisResponse tamper = tamperService.analyzeDocument(gcsPath);
+   //     DocumentAnalysisResponse tamper = tamperService.analyzeDocument(gcsPath);
 
 
         DocumentAnalysisResponse DocumentAnalysisResponse = new DocumentAnalysisResponse();
