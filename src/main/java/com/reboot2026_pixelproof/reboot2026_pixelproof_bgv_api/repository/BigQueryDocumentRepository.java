@@ -106,16 +106,18 @@ public class BigQueryDocumentRepository implements DocumentRepository {
         bigQuery.query(queryConfig);
     }
 
+
     private DocumentRecord mapRowToDocumentRecord(FieldValueList row) {
         DocumentRecord record = new DocumentRecord();
-        record.setDocument_id(row.get("document_id").getStringValue());
-        record.setFile_name(row.get("file_name").getStringValue());
-        record.setVerification_status(row.get("verification_status").getStringValue());
-        record.setGcs_path(row.get("gcs_path").getStringValue());
-        record.setEmployee_id(row.get("employee_id").getStringValue());
-        record.setScore(row.get("score").getNumericValue().intValue());
-        record.setDecision(row.get("decision").getStringValue());
-        record.setReasonCodes(row.get("reasonCodes").getStringValue());
+
+        record.setDocument_id(row.get("document_id").isNull() ? null : row.get("document_id").getStringValue());
+        record.setEmployee_id(row.get("employee_id").isNull() ? null : row.get("employee_id").getStringValue());
+        record.setScore(row.get("score").isNull() ? 0 : row.get("score").getNumericValue().intValue());
+        record.setFile_name(row.get("file_name").isNull() ? null : row.get("file_name").getStringValue());
+        record.setGcs_path(row.get("gcs_path").isNull() ? null : row.get("gcs_path").getStringValue());
+        record.setVerification_status(row.get("verification_status").isNull() ? null : row.get("verification_status").getStringValue());
+        record.setDocument_id(row.get("decision").isNull() ? null : row.get("decision").getStringValue());
+        record.setEmployee_id(row.get("reasonCodes").isNull() ? null : row.get("reasonCodes").getStringValue());
 
         return record;
 
