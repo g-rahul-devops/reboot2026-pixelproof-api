@@ -91,12 +91,12 @@ public class BigQueryDocumentRepository implements DocumentRepository {
     public void updateOcrSave(DocumentRecord documentRecord) throws InterruptedException {
         String query = String.format(
                 "UPDATE `%s.%s` " +
-                        "SET score = '%d', " +
+                        "SET score = %d, " + // Changed '%s' to %d for numeric value
                         "decision = '%s', " +
                         "reasonCodes = '%s' " +
                         "WHERE document_id = '%s'",
                 datasetName, tableName,
-                documentRecord.getScore(),
+                documentRecord.getScore(), // Ensure this is an integer
                 documentRecord.getDecision(),
                 documentRecord.getReasonCodes(),
                 documentRecord.getDocument_id()
