@@ -112,6 +112,12 @@ public class BigQueryDocumentRepository implements DocumentRepository {
         record.setFile_name(row.get("file_name").getStringValue());
         record.setVerification_status(row.get("verification_status").getStringValue());
         record.setGcs_path(row.get("gcs_path").getStringValue());
+        record.setEmployee_id(row.get("employee_id").getStringValue());
+        record.setScore(row.get("score").getNumericValue().intValue());
+        record.setDecision(row.get("decision").getStringValue());
+        record.setReasonCodes(row.get("reasonCodes").getStringValue());
+
         return record;
+
     }
 }
