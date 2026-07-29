@@ -11,5 +11,4 @@ public interface DocumentRepository {
 
     void updateSave(DocumentRecord documentRecord) throws InterruptedException;
     void updateOcrSave(DocumentRecord documentRecord) throws InterruptedException;
-    void deleteById(String id) throws InterruptedException;
 }

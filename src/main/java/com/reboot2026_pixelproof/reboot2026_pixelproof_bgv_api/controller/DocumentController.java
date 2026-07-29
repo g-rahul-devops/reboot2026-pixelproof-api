@@ -1,7 +1,9 @@
 package com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.controller;
 
 import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.entity.*;
+import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.repository.DocumentRepository;
 import com.reboot2026_pixelproof.reboot2026_pixelproof_bgv_api.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +21,23 @@ public class DocumentController {
     private final MetadataService metadataService;
     private final TamperDetectionService tamperService;
     private final RiskEngineService riskService;
+
+    private final DocumentRepository documentRepository;
+
    // private final AuditService auditService;
 
     public DocumentController(StorageService storageService,
                               FingerprintService fingerprintService,
                               MetadataService metadataService,
                               TamperDetectionService tamperService,
-                              RiskEngineService riskService
+                              RiskEngineService riskService,
+                              DocumentRepository documentRepository
                              // AuditService auditService
     ) {
         this.storageService = storageService;
         this.fingerprintService = fingerprintService;
         this.metadataService = metadataService;
+        this.documentRepository = documentRepository;
         this.tamperService = tamperService;
         this.riskService = riskService;
      //   this.auditService = auditService;
@@ -83,6 +90,22 @@ public class DocumentController {
         UploadResponse response = new UploadResponse(docId, hash, risk.getDecision());
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/employees/{employee_id}")
+    public List<DocumentRecord> getEmployeeDetailsById(@PathVariable("employee_id") String employeeId) throws InterruptedException {
+        return documentRepository.findAll().stream()
+                .filter(record -> employeeId.equals(record.getEmployee_id()))
+                .toList();
+    }
+
+    // Get all employees' details
+    @GetMapping("/employees")
+    public List<DocumentRecord> getAllEmployees() throws InterruptedException {
+        return documentRepository.findAll();
+    }
+
+
+
 //    @GetMapping("/{documentId}/status")
 //    public ResponseEntity<String> getStatus(@PathVariable String documentId) throws InterruptedException {
 //        String status = storageService.getStatus(documentId);

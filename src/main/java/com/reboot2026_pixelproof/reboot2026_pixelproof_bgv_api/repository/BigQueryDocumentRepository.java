@@ -106,13 +106,6 @@ public class BigQueryDocumentRepository implements DocumentRepository {
         bigQuery.query(queryConfig);
     }
 
-    @Override
-    public void deleteById(String id) throws InterruptedException {
-        String query = String.format("DELETE FROM `%s.%s` WHERE id = '%s'", datasetName, tableName, id);
-        QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
-        bigQuery.query(queryConfig);
-    }
-
     private DocumentRecord mapRowToDocumentRecord(FieldValueList row) {
         DocumentRecord record = new DocumentRecord();
         record.setDocument_id(row.get("document_id").getStringValue());
